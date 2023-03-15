@@ -521,4 +521,4 @@ async def poyo(ctx):
     await ctx.send(latency)
 '''
 
-bot.run('OTk4NTkzMjc2NTgyMDM1NTE2.GZ20hH.1m1tACUHF0zc4rzd_MErDTOxKNolBBx2-spr7Y')
+bot.run(os.environ['DISCORD_TOKEN'])

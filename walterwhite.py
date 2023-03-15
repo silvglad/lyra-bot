@@ -242,4 +242,4 @@ async def on_message(message):
 
 bot.loop.create_task(background_task())
 bot.loop.create_task(aprendizajeFrases())
-bot.run("NDg1NDAxNTAxMjg0Njk2MDY0.W4pvYA.k8gbQj2bpcHZw289sBeQZPWMlxs")
+bot.run(os.environ['DISCORD_TOKEN_WALTER'])
