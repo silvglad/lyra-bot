@@ -1,0 +1,2 @@
+# lyra-bot
+Discord bot
