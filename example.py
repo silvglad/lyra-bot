@@ -6,6 +6,7 @@ import aiohttp
 import os
 import youtube_dl
 import asyncio
+from dotenv import load_dotenv
 from discord.ext import commands
 
 logger = logging.getLogger('discord')
@@ -17,6 +18,7 @@ logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.members = True
+intents.message_content = True
 
 bot = commands.Bot('?', intents=intents, activity=discord.Game(name='Ys'))
 candidatos = []
@@ -25,9 +27,6 @@ ruleta = False
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
-    user = await bot.fetch_user("325587406105477120")
-    await user.send("mwah") 
-
 
 @bot.event
 async def on_message(message):
@@ -125,34 +124,6 @@ async def on_message(message):
       
     if 'poggers' in message.content.lower().split():
       await message.channel.send("https://pbs.twimg.com/media/EXbhWXLWsAAErj_.jpg")
-
-    """
-    if ((message.content == "yo") and (ruleta)):
-        global candidatos
-        candidatos.append(message.author.id)
-        await message.channel.send("Prepárate " + message.author.display_name)
-
-    if(message.content == "!ruleta"):
-        await message.channel.send("Tienen 60 segundos para apuntarse diciendo yo, empezando ya")
-        candidatos = []
-        ruleta = True
-        await asyncio.sleep(60)        
-        expulsion = random.randint(0, len(candidatos)-1)
-        expulsao = message.guild.get_member(candidatos[expulsion])
-        await message.channel.send("Que te jodan, " + expulsao.display_name)
-        await message.guild.kick(message.guild.get_member(candidatos[expulsion]), reason=None)
-        ruleta = False
-
-    if(message.content == "!genocida"):
-        await message.channel.send("Espero no echar a Dixeo")
-        todos = list(message.guild.members)
-        await asyncio.sleep(5)        
-        expulsion = random.randint(0, len(todos)-1)
-        expulsao = message.guild.get_member(todos[expulsion].id)
-        print(expulsao)
-        await message.channel.send("Que te jodan, " + expulsao.display_name)
-        await message.guild.kick(message.guild.get_member(expulsao.id), reason=None)
-   """
         
     await bot.process_commands(message)
     
@@ -209,21 +180,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
 async def join(ctx):
     channel = ctx.author.voice.channel
     await channel.connect()
-    
-'''
-@bot.command()
-async def play(ctx):
-    try :
-        server = ctx.message.guild
-        voice_channel = server.voice_client
-
-        async with ctx.typing():
-            filename = await YTDLSource.from_url('https://www.youtube.com/watch?v=WKvUE7LB3Js', loop=bot.loop)
-            voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))
-        await ctx.send('**Now playing:** {}'.format(filename))
-    except:
-        await ctx.send("The bot is not connected to a voice channel.")
-'''
     
 @bot.command()
 async def leave(ctx):
@@ -284,224 +240,86 @@ async def resume(ctx):
     await ctx.voice_client.resume()
     
 @bot.command()
-async def surprise(ctx):
+async def play(ctx, song):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/song.mp3?v=1674781173433'
-    voice.play(discord.FFmpegPCMAudio(song))
+    match song:
+        case "surprise":
+            temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/song.mp3?v=1674781173433'
+        case "chao":
+            temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Neutral%20Garden.mp3?v=1674950631866'
+        case "yippie":
+            temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Sena%20Yippee%20(No%20music%20or%20Sound%20Effects).mp3?v=1676243559569'
+        case "maricones":
+            temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20Of%20An%20Absolution%20(LB%20vs%20JS%20Remix)%20(128%20kbps).mp3?v=1677094279296'
+        case "musicade":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20of%20An%20Absolution%20-Theme%20of%20Silver%20The%20Hedgehog-%20(128%20kbps).mp3?v=1677094360206"
+        case "ys":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20VIII%20-Lacrimosa%20of%20DANA-%20OST%20-%20Sunshine%20Coastline%20(128%20kbps).mp3?v=1677094339931"
+        case "trails":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sen%20no%20Kiseki%20Super%20Arrange%20Version%20-%20The%20Decisive%20Collision%20(128%20kbps).mp3?v=1677094851678"
+        case "sranktrauma":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20-%20Cyber%20Space%201-2_%20Flowing%20(128%20kbps).mp3?v=1677094824050"
+        case "teamosupersonic":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20OST%20-%20Find%20Your%20Flame%20(128%20kbps).mp3?v=1677094866443"
+        case "enfundatuvenganza":
+            temp_song =  "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Unfounded_Revenge_Smashing_Song_of_Praise_Super_Smash_Bros_Ultimate_Soundtrack.mp3?v=1677095252922"
+        case "carnavalfiesta":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Carnival_Night_Zone_Act_1_-_Sonic_the_Hedgehog_3_OST.mp3?v=1677095975799"
+        case "bajadeltechoniña":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Rooftop_Run_Day_Sonic_Unleashed_OST.mp3?v=1677096003354"
+        case "ladrondemadres":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Mind_of_a_Thief_MOTHER_3_OST.mp3?v=1677095990457"
+        case "derrotameesta":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Undefeatable_-_Sonic_Frontiers_OST_High_Quality.mp3?v=1677096358965"
+        case "gladiooon":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Pokemon_Sun_Moon_Gladion_Battle_Music_Highest_Quality.mp3?v=1677096344516"
+        case "sexmusic":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/You_Will_Know_Our_Names_-_Xenoblade_Chronicles__Definitive_Edition_Music.mp3?v=1677096345917"
+        case "viveyaprende":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Live_and_Learn_by_Crush_40_Main_Theme_of_SA2.mp3?v=1677096624916"
+        case "posibilidades":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Endless_Possibility_Sonic_Unleashed_OST.mp3?v=1677096623417"
+        case "sumundito":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_His_World_Theme_of_Sonic_The_Hedgehog.mp3?v=1677096627678"
+        case "plsimastar":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Reach_for_the_Stars_Opening_Theme_Sonic_Colors_OST.mp3?v=1677096628367"
+        case "itsnouse":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Its_No_Use_Sonic_Unleashed_OST.mp3?v=1677096629008"
+        case "caballerodelviento":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Knight_of_the_Wind_Sonic_and_the_Black_Knight_OST.mp3?v=1677096631705"
+        case "estoyhecho":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/What_Im_Made_Of....mp3?v=1677096632143"
+        case "geis":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20CROSSING%20RAGE!%20(Ys%20SEVEN)%20(128%20kbps).mp3?v=1677097074332"
+        case "chosdeko":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Team_Chaotix_Sonic_Heroes_OST.mp3?v=1677097079904"
+        case "azulcomoelmar":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Inevitable%20Struggle%20(128%20kbps).mp3?v=1677097083962"                 
+        case "silver":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sora%20no%20Kiseki%20FC%20%26%20SC%20Super%20Arrange%20Version%20-%20Silver%20Will%20(128%20kbps).mp3?v=1677097090271"
+        case "jueguenys":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20Origin%20Super%20Arrange%20Version%20-%20Jueguen%20Ys%20(128%20kbps).mp3?v=1677097090818"
+        case "tropicure":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20%5B1080p%5DTropical-Rouge%20Precure%20Opening%201%20(128%20kbps).mp3?v=1677097494493"                 
+        case "miasma":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/T_H_E_M_I_A_S_M_A_Tales_of_the_Abyss.mp3?v=1677097499223"
+        case "kratosteamo":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Tales%20of%20Symphonia%20-%20Kratos'%20theme%20(128%20kbps).mp3?v=1677097858223"
+        case "findelpensamiento":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Soundtrack__End_of_a_Thought.mp3?v=1677097996926"
+        case "espiritufusfus":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Music-_Fighting_of_the_Spirits.mp3?v=1677098244676"
+        case "kanarazu":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/PS2_Tales_of_the_Abyss_OP.mp3?v=1677098248757"
+        case "tuturara":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/1-21_Paulownian_Mall.mp3?v=1677100363951"
+        case "myangeloffate":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Brave%20Story%20-%20My%20Angel%20of%20Fate%20(128%20kbps).mp3?v=1677100364498"
+        case "teammetaknight":
+            temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Friends%20and%20Sun%20-%20Kirby%20Super%20Star%20Ultra%20(128%20kbps).mp3?v=1677269256020"
     
-@bot.command()
-async def chao(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Neutral%20Garden.mp3?v=1674950631866"
     voice.play(discord.FFmpegPCMAudio(temp_song))
     
-@bot.command()
-async def yippie(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Sena%20Yippee%20(No%20music%20or%20Sound%20Effects).mp3?v=1676243559569"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-    
-@bot.command()
-async def maricones(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20Of%20An%20Absolution%20(LB%20vs%20JS%20Remix)%20(128%20kbps).mp3?v=1677094279296"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-    
-@bot.command()
-async def musicade(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20of%20An%20Absolution%20-Theme%20of%20Silver%20The%20Hedgehog-%20(128%20kbps).mp3?v=1677094360206"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-    
-@bot.command()
-async def ys(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20VIII%20-Lacrimosa%20of%20DANA-%20OST%20-%20Sunshine%20Coastline%20(128%20kbps).mp3?v=1677094339931"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-    
-@bot.command()
-async def trails(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sen%20no%20Kiseki%20Super%20Arrange%20Version%20-%20The%20Decisive%20Collision%20(128%20kbps).mp3?v=1677094851678"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-
-@bot.command()
-async def sranktrauma(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20-%20Cyber%20Space%201-2_%20Flowing%20(128%20kbps).mp3?v=1677094824050"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-
-@bot.command()
-async def teamosupersonic(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20OST%20-%20Find%20Your%20Flame%20(128%20kbps).mp3?v=1677094866443"
-    voice.play(discord.FFmpegPCMAudio(temp_song))
-    
-async def auxsong(ctx, song):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    voice.play(discord.FFmpegPCMAudio(song))
-    
-@bot.command()
-async def enfundatuvenganza(ctx):
-    await auxsong(ctx, 
-    "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Unfounded_Revenge_Smashing_Song_of_Praise_Super_Smash_Bros_Ultimate_Soundtrack.mp3?v=1677095252922"
-                 )
-    
-@bot.command()
-async def carnavalfiesta(ctx):
-    await auxsong(ctx, 
-    "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Carnival_Night_Zone_Act_1_-_Sonic_the_Hedgehog_3_OST.mp3?v=1677095975799"
-                )
-    
-@bot.command()
-async def bajadeltechoniña(ctx):
-    await auxsong(ctx, 
-                  "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Rooftop_Run_Day_Sonic_Unleashed_OST.mp3?v=1677096003354"
-                 )
-    
-@bot.command()
-async def ladrondemadres(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Mind_of_a_Thief_MOTHER_3_OST.mp3?v=1677095990457"
-                 )
-    
-@bot.command()
-async def derrotameesta(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Undefeatable_-_Sonic_Frontiers_OST_High_Quality.mp3?v=1677096358965"                  
-                 )
-    
-@bot.command()
-async def GLADIOOON(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Pokemon_Sun_Moon_Gladion_Battle_Music_Highest_Quality.mp3?v=1677096344516"                  
-                 )
-    
-@bot.command()
-async def sexmusic(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/You_Will_Know_Our_Names_-_Xenoblade_Chronicles__Definitive_Edition_Music.mp3?v=1677096345917"                  
-                 
-                 )  
-
-@bot.command()
-async def posibilidades(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Endless_Possibility_Sonic_Unleashed_OST.mp3?v=1677096623417"                 
-                 )  
-@bot.command()
-async def viveyaprende(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Live_and_Learn_by_Crush_40_Main_Theme_of_SA2.mp3?v=1677096624916"                 
-                 )  
-    
-@bot.command()
-async def sumundito(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_His_World_Theme_of_Sonic_The_Hedgehog.mp3?v=1677096627678"                 
-                 )  
-    
-@bot.command()
-async def plsimastar(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Reach_for_the_Stars_Opening_Theme_Sonic_Colors_OST.mp3?v=1677096628367"                 
-                 )  
-    
-@bot.command()
-async def itsnouse(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Sound_Effect_Silver_-_Its_No_Use.mp3?v=1677096628586"                 
-                 )  
-
-@bot.command()
-async def caballerodelviento(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Knight_of_the_Wind_Sonic_and_the_Black_Knight_OST.mp3?v=1677096631705"                 
-                 
-                 )  
-    
-@bot.command()
-async def estoyhecho(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/What_Im_Made_Of....mp3?v=1677096632143"                 
-                 )  
-
-@bot.command()
-async def geis(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20CROSSING%20RAGE!%20(Ys%20SEVEN)%20(128%20kbps).mp3?v=1677097074332"                 
-                 )  
-@bot.command()
-async def chosdeko(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Team_Chaotix_Sonic_Heroes_OST.mp3?v=1677097079904"                 
-                 )  
-@bot.command()
-async def azulcomoelmar(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Inevitable%20Struggle%20(128%20kbps).mp3?v=1677097083962"                 
-                 )  
-@bot.command()
-async def silver(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sora%20no%20Kiseki%20FC%20%26%20SC%20Super%20Arrange%20Version%20-%20Silver%20Will%20(128%20kbps).mp3?v=1677097090271"                 
-                 )  
-@bot.command()
-async def jueguenys(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20Origin%20Super%20Arrange%20Version%20-%20Over%20Drive%20(128%20kbps).mp3?v=1677097159061"                 
-                 
-                 )  
-    
-@bot.command()
-async def tropicure(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20%5B1080p%5DTropical-Rouge%20Precure%20Opening%201%20(128%20kbps).mp3?v=1677097494493"                 
-                 )  
-@bot.command()
-async def miasma(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/T_H_E_M_I_A_S_M_A_Tales_of_the_Abyss.mp3?v=1677097499223"                 
-                 )  
-    
-@bot.command()
-async def kratosteamo(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Tales%20of%20Symphonia%20-%20Kratos'%20theme%20(128%20kbps).mp3?v=1677097858223"                 )  
-    
-@bot.command()
-async def findelpensamiento(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Soundtrack__End_of_a_Thought.mp3?v=1677097996926"                 
-                 )  
-
-@bot.command()
-async def espiritufusfus(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Music-_Fighting_of_the_Spirits.mp3?v=1677098244676"                 
-                 )  
-    
-@bot.command()
-async def kanarazu(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/PS2_Tales_of_the_Abyss_OP.mp3?v=1677098248757"                 
-                 )  
-    
-@bot.command()
-async def tuturara(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/1-21_Paulownian_Mall.mp3?v=1677100363951"                 )  
-    
-@bot.command()
-async def myangeloffate(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Bravely%20Default%20-%20Flying%20Fairy%20OST%20-%2027%20Love's%20Vagrant%20(128%20kbps).mp3?v=1677269254269"                 
-                 )  
-@bot.command()
-async def teamometaknight(ctx):
-    await auxsong(ctx, 
-"https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Friends%20and%20Sun%20-%20Kirby%20Super%20Star%20Ultra%20(128%20kbps).mp3?v=1677269256020"                 
-                 )  
 @bot.command()
 async def say(ctx, *, text):
   if ctx.message.author.id == 303617564607643648:
@@ -510,15 +328,5 @@ async def say(ctx, *, text):
   else:
     await ctx.send("casi pero no")
 
-'''
-@bot.command(name="poyo")
-@commands.cooldown(1, 86400, commands.BucketType.guild)
-async def poyo(ctx):
-
-    # Get the latency of the bot
-    latency = bot.latency  # Included in the Discord.py library
-    # Send it to the user
-    await ctx.send(latency)
-'''
-
-bot.run(os.environ['DISCORD_TOKEN'])
+load_dotenv()
+bot.run(os.getenv('DISCORD_TOKEN'))
