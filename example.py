@@ -18,7 +18,7 @@ logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.members = True
-intents.message_content = True
+intents.messages = True
 
 bot = commands.Bot('?', intents=intents, activity=discord.Game(name='Ys'))
 candidatos = []
@@ -241,6 +241,44 @@ async def resume(ctx):
     
 @bot.command()
 async def play(ctx, song):
+    '''
+    chao
+    yippie
+    maricones
+    musicade
+    ys
+    trails
+    sranktrauma
+    teamosupersonic
+    enfundatuvenganza
+    carnavalfiesta
+    bajadeltechoniña
+    ladrondemadres
+    derrotameesta
+    gladiooon
+    sexmusic
+    viveyaprende
+    posibilidades
+    sumundito
+    plsimastar
+    itsnouse
+    caballerodelviento
+    estoyhecho
+    geis
+    chosdeko
+    azulcomoelmar
+    silver
+    jueguenys
+    tropicure
+    miasma
+    kratosteamo
+    findelpensamiento
+    espiritufusfus
+    kanarazu
+    tuturara
+    myangeloffate
+    teammetaknight
+    '''
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     if song == "surprise":
         temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/song.mp3?v=1674781173433'
@@ -317,7 +355,7 @@ async def play(ctx, song):
     if song ==  "teammetaknight":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Friends%20and%20Sun%20-%20Kirby%20Super%20Star%20Ultra%20(128%20kbps).mp3?v=1677269256020"
     
-        voice.play(discord.FFmpegPCMAudio(temp_song))
+    await voice.play(discord.FFmpegPCMAudio(temp_song))
     
 @bot.command()
 async def say(ctx, *, text):
