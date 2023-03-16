@@ -242,6 +242,7 @@ async def resume(ctx):
 @bot.command()
 async def play(ctx, song):
     '''
+    surprise
     chao
     yippie
     maricones
@@ -278,81 +279,86 @@ async def play(ctx, song):
     tuturara
     myangeloffate
     teammetaknight
+    maskeddedede
+    esamor
+    nazco
+    fuentedelosdeseos
+    nomasmother
     '''
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     if song == "surprise":
         temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/song.mp3?v=1674781173433'
-    if song ==  "chao":
+    if song == "chao":
         temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Neutral%20Garden.mp3?v=1674950631866'
-    if song ==  "yippie":
+    if song == "yippie":
         temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Sena%20Yippee%20(No%20music%20or%20Sound%20Effects).mp3?v=1676243559569'
-    if song ==  "maricones":
+    if song == "maricones":
         temp_song = 'https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20Of%20An%20Absolution%20(LB%20vs%20JS%20Remix)%20(128%20kbps).mp3?v=1677094279296'
-    if song ==  "musicade":
+    if song == "musicade":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Dreams%20of%20An%20Absolution%20-Theme%20of%20Silver%20The%20Hedgehog-%20(128%20kbps).mp3?v=1677094360206"
-    if song ==  "ys":
+    if song == "ys":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20VIII%20-Lacrimosa%20of%20DANA-%20OST%20-%20Sunshine%20Coastline%20(128%20kbps).mp3?v=1677094339931"
-    if song ==  "trails":
+    if song == "trails":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sen%20no%20Kiseki%20Super%20Arrange%20Version%20-%20The%20Decisive%20Collision%20(128%20kbps).mp3?v=1677094851678"
-    if song ==  "sranktrauma":
+    if song == "sranktrauma":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20-%20Cyber%20Space%201-2_%20Flowing%20(128%20kbps).mp3?v=1677094824050"
-    if song ==  "teamosupersonic":
+    if song == "teamosupersonic":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sonic%20Frontiers%20OST%20-%20Find%20Your%20Flame%20(128%20kbps).mp3?v=1677094866443"
-    if song ==  "enfundatuvenganza":
+    if song == "enfundatuvenganza":
         temp_song =  "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Unfounded_Revenge_Smashing_Song_of_Praise_Super_Smash_Bros_Ultimate_Soundtrack.mp3?v=1677095252922"
-    if song ==  "carnavalfiesta":
+    if song == "carnavalfiesta":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Carnival_Night_Zone_Act_1_-_Sonic_the_Hedgehog_3_OST.mp3?v=1677095975799"
-    if song ==  "bajadeltechoniña":
+    if song == "bajadeltechoniña":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Rooftop_Run_Day_Sonic_Unleashed_OST.mp3?v=1677096003354"
-    if song ==  "ladrondemadres":
+    if song == "ladrondemadres":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Mind_of_a_Thief_MOTHER_3_OST.mp3?v=1677095990457"
-    if song ==  "derrotameesta":
+    if song == "derrotameesta":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Undefeatable_-_Sonic_Frontiers_OST_High_Quality.mp3?v=1677096358965"
-    if song ==  "gladiooon":
+    if song == "gladiooon":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Pokemon_Sun_Moon_Gladion_Battle_Music_Highest_Quality.mp3?v=1677096344516"
-    if song ==  "sexmusic":
+    if song == "sexmusic":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/You_Will_Know_Our_Names_-_Xenoblade_Chronicles__Definitive_Edition_Music.mp3?v=1677096345917"
-    if song ==  "viveyaprende":
+    if song == "viveyaprende":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Live_and_Learn_by_Crush_40_Main_Theme_of_SA2.mp3?v=1677096624916"
-    if song ==  "posibilidades":
+    if song == "posibilidades":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Endless_Possibility_Sonic_Unleashed_OST.mp3?v=1677096623417"
-    if song ==  "sumundito":
+    if song == "sumundito":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_His_World_Theme_of_Sonic_The_Hedgehog.mp3?v=1677096627678"
-    if song ==  "plsimastar":
+    if song == "plsimastar":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Reach_for_the_Stars_Opening_Theme_Sonic_Colors_OST.mp3?v=1677096628367"
-    if song ==  "itsnouse":
+    if song == "itsnouse":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Its_No_Use_Sonic_Unleashed_OST.mp3?v=1677096629008"
-    if song ==  "caballerodelviento":
+    if song == "caballerodelviento":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Knight_of_the_Wind_Sonic_and_the_Black_Knight_OST.mp3?v=1677096631705"
-    if song ==  "estoyhecho":
+    if song == "estoyhecho":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/What_Im_Made_Of....mp3?v=1677096632143"
-    if song ==  "geis":
+    if song == "geis":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20CROSSING%20RAGE!%20(Ys%20SEVEN)%20(128%20kbps).mp3?v=1677097074332"
-    if song ==  "chosdeko":
+    if song == "chosdeko":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Team_Chaotix_Sonic_Heroes_OST.mp3?v=1677097079904"
-    if song ==  "azulcomoelmar":
+    if song == "azulcomoelmar":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Inevitable%20Struggle%20(128%20kbps).mp3?v=1677097083962"                 
-    if song ==  "silver":
+    if song == "silver":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Sora%20no%20Kiseki%20FC%20%26%20SC%20Super%20Arrange%20Version%20-%20Silver%20Will%20(128%20kbps).mp3?v=1677097090271"
-    if song ==  "jueguenys":
+    if song == "jueguenys":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Ys%20Origin%20Super%20Arrange%20Version%20-%20Jueguen%20Ys%20(128%20kbps).mp3?v=1677097090818"
-    if song ==  "tropicure":
+    if song == "tropicure":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20%5B1080p%5DTropical-Rouge%20Precure%20Opening%201%20(128%20kbps).mp3?v=1677097494493"                 
-    if song ==  "miasma":
+    if song == "miasma":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/T_H_E_M_I_A_S_M_A_Tales_of_the_Abyss.mp3?v=1677097499223"
-    if song ==  "kratosteamo":
+    if song == "kratosteamo":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Tales%20of%20Symphonia%20-%20Kratos'%20theme%20(128%20kbps).mp3?v=1677097858223"
-    if song ==  "findelpensamiento":
+    if song == "findelpensamiento":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Soundtrack__End_of_a_Thought.mp3?v=1677097996926"
-    if song ==  "espiritufusfus":
+    if song == "espiritufusfus":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_Symphonia_Music-_Fighting_of_the_Spirits.mp3?v=1677098244676"
-    if song ==  "kanarazu":
+    if song == "kanarazu":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/PS2_Tales_of_the_Abyss_OP.mp3?v=1677098248757"
-    if song ==  "tuturara":
+    if song == "tuturara":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/1-21_Paulownian_Mall.mp3?v=1677100363951"
-    if song ==  "myangeloffate":
+    if song == "myangeloffate":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Brave%20Story%20-%20My%20Angel%20of%20Fate%20(128%20kbps).mp3?v=1677100364498"
-    if song ==  "teammetaknight":
+    if song == "teammetaknight":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Friends%20and%20Sun%20-%20Kirby%20Super%20Star%20Ultra%20(128%20kbps).mp3?v=1677269256020"
     if song == "maskeddedede":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Masked_Dedede_Battle_Kirby_Super_Star_Ultra.mp3?v=1678991467989"
