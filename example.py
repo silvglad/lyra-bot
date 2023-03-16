@@ -354,7 +354,16 @@ async def play(ctx, song):
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Brave%20Story%20-%20My%20Angel%20of%20Fate%20(128%20kbps).mp3?v=1677100364498"
     if song ==  "teammetaknight":
         temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/SnapSave.io%20-%20Friends%20and%20Sun%20-%20Kirby%20Super%20Star%20Ultra%20(128%20kbps).mp3?v=1677269256020"
-    
+    if song == "maskeddedede":
+        temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Masked_Dedede_Battle_Kirby_Super_Star_Ultra.mp3?v=1678991467989"
+    if song == "esamor":
+        temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Mother_3_Love_Theme_-_Mother_3.mp3?v=1678991568116"
+    if song == "nazco":
+        temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/Tales_of_the_Abyss_OST_-_Meaning_of_Birth.mp3?v=1678991573503"
+    if song == "fuentedelosdeseos":
+        temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Kirbys_Epic_Yarn_Fountain_Gardens.mp3?v=1678991673245"
+    if song == "nomasmother":
+        temp_song = "https://cdn.glitch.global/4481df25-2b21-46d9-8f45-e8f30e142960/y2mate.com_-_Mother_3_OST_Moms_Hometown.mp3?v=1678991671585"
     await voice.play(discord.FFmpegPCMAudio(temp_song))
     
 @bot.command()
@@ -364,6 +373,10 @@ async def say(ctx, *, text):
     await ctx.send(text)
   else:
     await ctx.send("casi pero no")
+    
+@bot.command()
+async def rika(ctx):
+    await ctx.send("https://cdn.discordapp.com/attachments/1046777684287565834/1085995157448560740/20230313_01_Discord_usages_only_do_not_repost..gif")
 
 load_dotenv()
 bot.run(os.getenv('DISCORD_TOKEN'))
