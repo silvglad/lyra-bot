@@ -124,6 +124,12 @@ async def on_message(message):
       
     if 'poggers' in message.content.lower().split():
       await message.channel.send("https://pbs.twimg.com/media/EXbhWXLWsAAErj_.jpg")
+      
+    if 'qué hacemos' in message.content.lower() or 'que hacemos' in message.content.lower():
+      await message.channel.send(str(discord.utils.get(bot.stickers, name='juegos')))
+    
+    if 'skill' in message.content.lower().split() or 'issue' in message.content.lower().split():
+      await message.channel.send("jaja demostró skill issue")
         
     await bot.process_commands(message)
     
@@ -381,8 +387,14 @@ async def say(ctx, *, text):
     await ctx.send("casi pero no")
     
 @bot.command()
-async def rika(ctx):
-    await ctx.send("https://cdn.discordapp.com/attachments/1046777684287565834/1085995157448560740/20230313_01_Discord_usages_only_do_not_repost..gif")
+async def emo(ctx, text):
+    emote = discord.utils.get(bot.emojis, name=text)
+    await ctx.send(str(emote))
+    
+@bot.command()
+async def sti(ctx, text):
+    sticker = discord.utils.get(bot.stickers, name=text)
+    await ctx.send(str(sticker))
 
 load_dotenv()
 bot.run(os.getenv('DISCORD_TOKEN'))
