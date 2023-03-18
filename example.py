@@ -126,7 +126,7 @@ async def on_message(message):
       await message.channel.send("https://pbs.twimg.com/media/EXbhWXLWsAAErj_.jpg")
       
     if 'qué hacemos' in message.content.lower() or 'que hacemos' in message.content.lower():
-      await message.channel.send(str(discord.utils.get(bot.stickers, name='juegos')))
+      await message.channel.send("me es indiferente la verdad")
     
     if 'skill' in message.content.lower().split() or 'issue' in message.content.lower().split():
       await message.channel.send("jaja demostró skill issue")
@@ -387,14 +387,25 @@ async def say(ctx, *, text):
     await ctx.send("casi pero no")
     
 @bot.command()
-async def emo(ctx, text):
+async def emo(ctx, *, text):
     emote = discord.utils.get(bot.emojis, name=text)
-    await ctx.send(str(emote))
-    
+    await ctx.message.delete()
+    try:
+      await ctx.send(str(emote))
+    except:
+      print("No emote found")
+
+#Requires discord.py 2.0, but it doesn't support python 3.7 on Glitch
+'''
 @bot.command()
-async def sti(ctx, text):
+async def sti(ctx, *, text):
     sticker = discord.utils.get(bot.stickers, name=text)
-    await ctx.send(str(sticker))
+    await ctx.message.delete()
+    try:
+      await ctx.send(str(sticker))
+    except:
+      print("No sticker found")
+'''
 
 load_dotenv()
 bot.run(os.getenv('DISCORD_TOKEN'))
