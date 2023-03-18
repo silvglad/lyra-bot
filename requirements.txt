@@ -1,4 +1,6 @@
-discord
+discord.py
 youtube_dl
 pynacl
 ffmpeg
+aiohttp
+pynacl
