@@ -3,3 +3,7 @@
 node_modules
 discord.log
 .env
+.yaml
+.json
+walterwhite.py
+LICENSE
