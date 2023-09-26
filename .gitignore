@@ -1,9 +1,12 @@
 .glitchdotcom.json
 .node-gyp
+.cache
 node_modules
 discord.log
 .env
-.yaml
-.json
+*.yaml
+*.json
 walterwhite.py
 LICENSE
+examples/
+spotipyTests/

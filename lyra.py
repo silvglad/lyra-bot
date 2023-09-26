@@ -1,3 +1,4 @@
+import datetime
 import discord
 import logging
 import random
@@ -5,7 +6,6 @@ import io
 import aiohttp
 import os
 import youtube_dl
-import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -15,14 +15,9 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-
-intents = discord.Intents.default()
-intents.members = True
-intents.messages = True
+intents = discord.Intents.all()
 
 bot = commands.Bot('?', intents=intents, activity=discord.Game(name='Ys'))
-candidatos = []
-ruleta = False
 
 @bot.event
 async def on_ready():
@@ -30,10 +25,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    global ruleta
-    if message.author == bot.user:
-        return
-        
+  if message.guild.id == 465439238603800587:
     if random.random() < 0.001:
       message.channel.send("https://cdn.discordapp.com/attachments/482309896776450048/1080601371092467863/IMG_8025.png")
     if random.random() < 0.002:
@@ -129,7 +121,8 @@ async def on_message(message):
       await message.channel.send("me es indiferente la verdad")
     
     if 'skill' in message.content.lower().split() or 'issue' in message.content.lower().split():
-      await message.channel.send("jaja demostró skill issue")
+      if not message.author.bot:
+        await message.channel.send("jaja demostró skill issue")
         
     await bot.process_commands(message)
     
@@ -143,44 +136,6 @@ async def ping(ctx):
     latency = bot.latency  # Included in the Discord.py library
     # Send it to the user
     await ctx.send(latency)
-    
-youtube_dl.utils.bug_reports_message = lambda: ''
-
-ytdl_format_options = {
-    'format': 'bestaudio/best',
-    'restrictfilenames': True,
-    'noplaylist': True,
-    'nocheckcertificate': True,
-    'ignoreerrors': False,
-    'logtostderr': False,
-    'quiet': True,
-    'no_warnings': True,
-    'default_search': 'auto',
-    'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
-}
-
-ffmpeg_options = {
-    'options': '-vn'
-}
-
-ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
-
-class YTDLSource(discord.PCMVolumeTransformer):
-    def __init__(self, source, *, data, volume=0.5):
-        super().__init__(source, volume)
-        self.data = data
-        self.title = data.get('title')
-        self.url = ""
-
-    @classmethod
-    async def from_url(cls, url, *, loop=None, stream=False):
-        loop = loop or asyncio.get_event_loop()
-        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
-        if 'entries' in data:
-            # take first item from a playlist
-            data = data['entries'][0]
-        filename = data['title'] if stream else ytdl.prepare_filename(data)
-        return filename
       
 @bot.command()
 async def join(ctx):
@@ -406,6 +361,15 @@ async def sti(ctx, *, text):
     except:
       print("No sticker found")
 '''
+
+@bot.command()
+async def kicklol(ctx):
+  for member in ctx.guild.members:
+    for activity in member.activities:
+      if activity.name == "League of Legends":
+        duration = datetime.timedelta(seconds=10)
+        await member.timeout(reason="Playing League of Legends", until=duration)
+        await ctx.send(f"Timed out {member.name} for playing League of Legends")
 
 load_dotenv()
 bot.run(os.getenv('DISCORD_TOKEN'))
